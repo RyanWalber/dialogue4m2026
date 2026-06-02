@@ -37,9 +37,19 @@ public class GameManager : MonoBehaviour
     public void CarregarCena(string nomeDaCena)
     {
         if (nomeDaCena == "MainMenu") MudarEstado(EstadoDoJogo.MenuPrincipal);
-        if (nomeDaCena == "SampleScene") MudarEstado(EstadoDoJogo.Gameplay);
+        
+        if (nomeDaCena == "SampleScene") 
+        {
+            MudarEstado(EstadoDoJogo.Gameplay);
+        }
 
+      
         SceneManager.LoadScene(nomeDaCena);
+
+        if (nomeDaCena == "SampleScene")
+        {
+            SceneManager.LoadScene("GUI", LoadSceneMode.Additive);
+        }
     }
 
     public void AlocarInput(PlayerInput playerInput)
