@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
             MudarEstado(EstadoDoJogo.Gameplay);
         }
 
-      
         SceneManager.LoadScene(nomeDaCena);
 
         if (nomeDaCena == "SampleScene")

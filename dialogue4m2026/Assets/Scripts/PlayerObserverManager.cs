@@ -2,10 +2,9 @@ using System;
 
 public static class PlayerObserverManager
 {
-    public static Action<int> OnMoedaColetada;
+    public static event Action OnMoedaColetadaNoMapa;
+    public static void DispararMoedaColetadaNoMapa() => OnMoedaColetadaNoMapa?.Invoke();
 
-    public static void NotificarMoedaColetada(int quantidade)
-    {
-        OnMoedaColetada?.Invoke(quantidade);
-    }
+    public static event Action<int> OnMoedaContabilizada;
+    public static void NotificarMoedaContabilizada(int totalMoedas) => OnMoedaContabilizada?.Invoke(totalMoedas);
 }

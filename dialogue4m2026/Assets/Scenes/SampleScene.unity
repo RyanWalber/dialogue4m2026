@@ -1804,8 +1804,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c509735bc11841d68eb1fd36d0ee7c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  forcaMovimento: 15
-  velocidadeMaxima: 8
+  moveSpeed: 8
+  maxSpeed: 6
+  cameraRelativeMovement: 1
   cameraTransform: {fileID: 330585546}
 --- !u!54 &2051619377
 Rigidbody:
