@@ -11,8 +11,10 @@ public class Moeda : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        BolinhaController bola = other.GetComponent<BolinhaController>();
+        if (bola != null)
         {
+            bola.ColetarMoedaModificadora();
             PlayerObserverManager.DispararMoedaColetadaNoMapa();
             Destroy(gameObject);
         }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1977ba81107fb488e0caf43de85be6, type: 3}
+  m_Name: BolinhaAgil
+  m_EditorClassIdentifier: Assembly-CSharp::BolinhaData
+  nomeBolinha: Sombra
+  velocidadeInicial: 12
+  forcaEmpurraoBase: 12
+  tamanho: 0.9
+  tempoCooldown: 1
+  materialJogador1: {fileID: 2100000, guid: 5c3ae44730386874c98d2adda9a91fc9, type: 2}
+  materialJogador2: {fileID: 2100000, guid: bd85ba98648c534429550bac2bdccc28, type: 2}
