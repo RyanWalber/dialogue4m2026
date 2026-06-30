@@ -5,11 +5,11 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class BolinhaController : MonoBehaviour
 {
-    [Header("Configura��es do Jogador")]
+    [Header("Configurações do Jogador")]
     [Range(1, 2)] public int numeroJogador = 1;
     public BolinhaData dadosBolinha;
 
-    [Header("Estat�sticas Atuais (Modificadas por Moedas)")]
+    [Header("Estatísticas Atuais (Modificadas por Moedas)")]
     private float velocidadeAtual;
     private float forcaEmpurraoAtual;
     private int quantidadeMoedas = 0;
@@ -28,11 +28,11 @@ public class BolinhaController : MonoBehaviour
 
     void Start()
     {
-        InicializarStatus();
+        InitializeStatus();
         BuscarAdversario();
     }
 
-    private void InicializarStatus()
+    private void InitializeStatus()
     {
         if (dadosBolinha != null)
         {
@@ -71,7 +71,7 @@ public class BolinhaController : MonoBehaviour
             inputActions.Player.Move.canceled += OnMoveJ1;
             inputActions.Player.Empurrar.performed += OnEmpurrarJ1;
         }
-        else
+        else if (numeroJogador == 2)
         {
             inputActions.Player.Move.performed += OnMoveJ2;
             inputActions.Player.Move.canceled += OnMoveJ2;
@@ -87,7 +87,7 @@ public class BolinhaController : MonoBehaviour
             inputActions.Player.Move.canceled -= OnMoveJ1;
             inputActions.Player.Empurrar.performed -= OnEmpurrarJ1;
         }
-        else
+        else if (numeroJogador == 2)
         {
             inputActions.Player.Move.performed -= OnMoveJ2;
             inputActions.Player.Move.canceled -= OnMoveJ2;
@@ -96,11 +96,43 @@ public class BolinhaController : MonoBehaviour
         inputActions.Disable();
     }
 
-    private void OnMoveJ1(InputAction.CallbackContext context) => comandoMovimento = (numeroJogador == 1) ? context.ReadValue<Vector2>() : comandoMovimento;
-    private void OnMoveJ2(InputAction.CallbackContext context) => comandoMovimento = (numeroJogador == 2) ? context.ReadValue<Vector2>() : comandoMovimento;
+    private void OnMoveJ1(InputAction.CallbackContext context)
+    {
+        if (numeroJogador != 1) return;
 
-    private void OnEmpurrarJ1(InputAction.CallbackContext context) { if (numeroJogador == 1) ExecutarEmpurrao(); }
-    private void OnEmpurrarJ2(InputAction.CallbackContext context) { if (numeroJogador == 2) ExecutarEmpurrao(); }
+        // Se a tecla pressionada for uma Seta (Arrow), o Jogador 1 ignora!
+        if (context.control.path.Contains("Arrow") || context.control.path.Contains("arrow")) return;
+
+        comandoMovimento = context.ReadValue<Vector2>();
+    }
+
+    private void OnMoveJ2(InputAction.CallbackContext context)
+    {
+        if (numeroJogador != 2) return;
+
+        // Se a tecla pressionada NÃO for uma Seta (Arrow), o Jogador 2 ignora!
+        if (!context.control.path.Contains("Arrow") && !context.control.path.Contains("arrow")) return;
+
+        comandoMovimento = context.ReadValue<Vector2>();
+    }
+
+    private void OnEmpurrarJ1(InputAction.CallbackContext context) 
+    { 
+        // Só aceita o empurrão do J1 se a tecla for o Espaço (Space)
+        if (numeroJogador == 1 && context.control.path.ToLower().Contains("space")) 
+        {
+            ExecutarEmpurrao(); 
+        }
+    }
+    
+    private void OnEmpurrarJ2(InputAction.CallbackContext context) 
+    { 
+        // Só aceita o empurrão do J2 se a tecla for o Enter/Return
+        if (numeroJogador == 2 && (context.control.path.ToLower().Contains("enter") || context.control.path.ToLower().Contains("return"))) 
+        {
+            ExecutarEmpurrao(); 
+        }
+    }
 
     void FixedUpdate()
     {
