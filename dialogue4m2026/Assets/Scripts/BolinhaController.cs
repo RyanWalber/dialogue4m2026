@@ -34,6 +34,15 @@ public class BolinhaController : MonoBehaviour
 
     private void InitializeStatus()
     {
+        if (numeroJogador == 1 && DadosSelecao.BolinhaJogador1 != null)
+        {
+            dadosBolinha = DadosSelecao.BolinhaJogador1;
+        }
+        else if (numeroJogador == 2 && DadosSelecao.BolinhaJogador2 != null)
+        {
+            dadosBolinha = DadosSelecao.BolinhaJogador2;
+        }
+
         if (dadosBolinha != null)
         {
             velocidadeAtual = dadosBolinha.velocidadeInicial;
@@ -99,26 +108,19 @@ public class BolinhaController : MonoBehaviour
     private void OnMoveJ1(InputAction.CallbackContext context)
     {
         if (numeroJogador != 1) return;
-
-        // Se a tecla pressionada for uma Seta (Arrow), o Jogador 1 ignora!
         if (context.control.path.Contains("Arrow") || context.control.path.Contains("arrow")) return;
-
         comandoMovimento = context.ReadValue<Vector2>();
     }
 
     private void OnMoveJ2(InputAction.CallbackContext context)
     {
         if (numeroJogador != 2) return;
-
-        // Se a tecla pressionada NÃO for uma Seta (Arrow), o Jogador 2 ignora!
         if (!context.control.path.Contains("Arrow") && !context.control.path.Contains("arrow")) return;
-
         comandoMovimento = context.ReadValue<Vector2>();
     }
 
     private void OnEmpurrarJ1(InputAction.CallbackContext context) 
     { 
-        // Só aceita o empurrão do J1 se a tecla for o Espaço (Space)
         if (numeroJogador == 1 && context.control.path.ToLower().Contains("space")) 
         {
             ExecutarEmpurrao(); 
@@ -127,7 +129,6 @@ public class BolinhaController : MonoBehaviour
     
     private void OnEmpurrarJ2(InputAction.CallbackContext context) 
     { 
-        // Só aceita o empurrão do J2 se a tecla for o Enter/Return
         if (numeroJogador == 2 && (context.control.path.ToLower().Contains("enter") || context.control.path.ToLower().Contains("return"))) 
         {
             ExecutarEmpurrao(); 
