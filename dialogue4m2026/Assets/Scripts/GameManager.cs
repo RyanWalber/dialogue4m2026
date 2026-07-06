@@ -31,6 +31,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "_Boot")
+        {
+            CarregarCena("Splash");
+        }
+    }
+
     void OnEnable()
     {
         PlayerObserverManager.OnJogadorCaiu += ContabilizarQueda;

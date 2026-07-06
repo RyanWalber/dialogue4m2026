@@ -34,13 +34,16 @@ public class BolinhaController : MonoBehaviour
 
     private void InitializeStatus()
     {
-        if (numeroJogador == 1 && DadosSelecao.BolinhaJogador1 != null)
+        if (GameManager.Instance != null)
         {
-            dadosBolinha = DadosSelecao.BolinhaJogador1;
-        }
-        else if (numeroJogador == 2 && DadosSelecao.BolinhaJogador2 != null)
-        {
-            dadosBolinha = DadosSelecao.BolinhaJogador2;
+            if (numeroJogador == 1 && GameManager.Instance.bolinhaEscolhidaJ1 != null)
+            {
+                dadosBolinha = GameManager.Instance.bolinhaEscolhidaJ1;
+            }
+            else if (numeroJogador == 2 && GameManager.Instance.bolinhaEscolhidaJ2 != null)
+            {
+                dadosBolinha = GameManager.Instance.bolinhaEscolhidaJ2;
+            }
         }
 
         if (dadosBolinha != null)
@@ -119,19 +122,19 @@ public class BolinhaController : MonoBehaviour
         comandoMovimento = context.ReadValue<Vector2>();
     }
 
-    private void OnEmpurrarJ1(InputAction.CallbackContext context) 
-    { 
-        if (numeroJogador == 1 && context.control.path.ToLower().Contains("space")) 
+    private void OnEmpurrarJ1(InputAction.CallbackContext context)
+    {
+        if (numeroJogador == 1 && context.control.path.ToLower().Contains("space"))
         {
-            ExecutarEmpurrao(); 
+            ExecutarEmpurrao();
         }
     }
-    
-    private void OnEmpurrarJ2(InputAction.CallbackContext context) 
-    { 
-        if (numeroJogador == 2 && (context.control.path.ToLower().Contains("enter") || context.control.path.ToLower().Contains("return"))) 
+
+    private void OnEmpurrarJ2(InputAction.CallbackContext context)
+    {
+        if (numeroJogador == 2 && (context.control.path.ToLower().Contains("enter") || context.control.path.ToLower().Contains("return")))
         {
-            ExecutarEmpurrao(); 
+            ExecutarEmpurrao();
         }
     }
 

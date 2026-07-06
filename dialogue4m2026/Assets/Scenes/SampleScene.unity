@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 1279746636}
   m_Layer: 0
   m_Name: BOLA (1)
-  m_TagString: Player
+  m_TagString: Jogador2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 2051619383}
   m_Layer: 0
   m_Name: BOLA
-  m_TagString: Player
+  m_TagString: Jogador1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,14 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
     public void BotaoIniciar()
     {
-        GameManager.Instance.CarregarCena("SampleScene");
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.CarregarCena("CenaSelecao");
+        }
     }
 
     public void BotaoSair()
     {
+        Debug.Log("Saindo do jogo...");
         Application.Quit();
     }
 }

@@ -15,6 +15,20 @@ public class Moeda : MonoBehaviour
         if (bola != null)
         {
             bola.ColetarMoedaModificadora();
+
+            ControladorInterfaceSumo interfaceUI = Object.FindFirstObjectByType<ControladorInterfaceSumo>();
+            if (interfaceUI != null)
+            {
+                if (other.CompareTag("Jogador1"))
+                {
+                    interfaceUI.RegistrarMoedaDoJogador(1);
+                }
+                else if (other.CompareTag("Jogador2"))
+                {
+                    interfaceUI.RegistrarMoedaDoJogador(2);
+                }
+            }
+
             PlayerObserverManager.DispararMoedaColetadaNoMapa();
             Destroy(gameObject);
         }
