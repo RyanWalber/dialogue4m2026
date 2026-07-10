@@ -9,13 +9,13 @@ public class BolinhaController : MonoBehaviour
     [Range(1, 2)] public int numeroJogador = 1;
     public BolinhaData dadosBolinha;
 
-    [Header("Estatísticas Atuais")]
     private float velocidadeAtual;
     private float forcaEmpurraoAtual;
     private int quantidadeMoedas = 0;
 
     private Vector2 comandoMovimento = Vector2.zero;
     private Rigidbody rb;
+    private SumoInput inputActions;
     private bool podeEmpurrar = true;
     private BolinhaController adversario;
     private float massaInicial;
@@ -23,6 +23,7 @@ public class BolinhaController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        inputActions = new SumoInput();
     }
 
     void Start()
@@ -73,48 +74,98 @@ public class BolinhaController : MonoBehaviour
         }
     }
 
-    void Update()
+    void OnEnable()
     {
-        var teclado = Keyboard.current;
-        if (teclado == null) return;
-
-        float x = 0f;
-        float y = 0f;
+        inputActions.Enable();
 
         if (numeroJogador == 1)
         {
-            if (teclado.wKey.isPressed) y = 1f;
-            if (teclado.sKey.isPressed) y = -1f;
-            if (teclado.aKey.isPressed) x = -1f;
-            if (teclado.dKey.isPressed) x = 1f;
-
-            comandoMovimento = new Vector2(x, y).normalized;
-
-            if (teclado.spaceKey.wasPressedThisFrame)
-            {
-                ExecutarEmpurrao();
-            }
+            inputActions.Player.Move.performed += OnMoveJ1;
+            inputActions.Player.Move.canceled += OnMoveJ1;
+            inputActions.Player.Empurrar.performed += OnEmpurrarPerformedJ1;
         }
         else if (numeroJogador == 2)
         {
-            if (teclado.upArrowKey.isPressed) y = 1f;
-            if (teclado.downArrowKey.isPressed) y = -1f;
-            if (teclado.leftArrowKey.isPressed) x = -1f;
-            if (teclado.rightArrowKey.isPressed) x = 1f;
+            inputActions.Player.Move.performed += OnMoveJ2;
+            inputActions.Player.Move.canceled += OnMoveJ2;
+            inputActions.Player.Empurrar.performed += OnEmpurrarPerformedJ2;
+        }
+    }
 
-            comandoMovimento = new Vector2(x, y).normalized;
+    void OnDisable()
+    {
+        if (numeroJogador == 1)
+        {
+            inputActions.Player.Move.performed -= OnMoveJ1;
+            inputActions.Player.Move.canceled -= OnMoveJ1;
+            inputActions.Player.Empurrar.performed -= OnEmpurrarPerformedJ1;
+        }
+        else if (numeroJogador == 2)
+        {
+            inputActions.Player.Move.performed -= OnMoveJ2;
+            inputActions.Player.Move.canceled -= OnMoveJ2;
+            inputActions.Player.Empurrar.performed -= OnEmpurrarPerformedJ2;
+        }
+        inputActions.Disable();
+    }
 
-            if (teclado.enterKey.wasPressedThisFrame || teclado.numpadEnterKey.wasPressedThisFrame)
-            {
-                ExecutarEmpurrao();
-            }
+    private void OnMoveJ1(InputAction.CallbackContext context)
+    {
+        var control = context.control;
+        if (control.path.Contains("Arrow") || control.path.Contains("arrow")) return;
+
+        Vector2 input = context.ReadValue<Vector2>();
+
+        if (context.performed)
+        {
+            comandoMovimento = input;
+        }
+        else if (context.canceled)
+        {
+            comandoMovimento = Vector2.zero;
+        }
+    }
+
+    private void OnMoveJ2(InputAction.CallbackContext context)
+    {
+        var control = context.control;
+        if (!control.path.Contains("Arrow") && !control.path.Contains("arrow")) return;
+
+        Vector2 input = context.ReadValue<Vector2>();
+
+        if (context.performed)
+        {
+            comandoMovimento = input;
+        }
+        else if (context.canceled)
+        {
+            comandoMovimento = Vector2.zero;
+        }
+    }
+
+    private void OnEmpurrarPerformedJ1(InputAction.CallbackContext context)
+    {
+        if (context.control.path.ToLower().Contains("space"))
+        {
+            ExecutarEmpurrao();
+        }
+    }
+
+    private void OnEmpurrarPerformedJ2(InputAction.CallbackContext context)
+    {
+        if (context.control.path.ToLower().Contains("enter") || context.control.path.ToLower().Contains("return"))
+        {
+            ExecutarEmpurrao();
         }
     }
 
     void FixedUpdate()
     {
-        Vector3 forcaMovimento = new Vector3(comandoMovimento.x, 0f, comandoMovimento.y) * velocidadeAtual;
-        rb.AddForce(forcaMovimento, ForceMode.Acceleration);
+        if (comandoMovimento.sqrMagnitude > 0.01f)
+        {
+            Vector3 forcaMovimento = new Vector3(comandoMovimento.x, 0f, comandoMovimento.y).normalized * velocidadeAtual;
+            rb.AddForce(forcaMovimento, ForceMode.Acceleration);
+        }
     }
 
     private void ExecutarEmpurrao()
@@ -182,6 +233,7 @@ public class BolinhaController : MonoBehaviour
 
         quantidadeMoedas = 0;
         podeEmpurrar = true;
+        comandoMovimento = Vector2.zero;
 
         if (dadosBolinha != null)
         {

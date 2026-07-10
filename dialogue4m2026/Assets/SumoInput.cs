@@ -94,7 +94,7 @@ public partial class @SumoInput: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""e45d90ff-2314-40d1-abc0-ee865378af08"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
