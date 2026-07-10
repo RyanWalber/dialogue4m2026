@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Moeda : MonoBehaviour
 {
-    [SerializeField] private float velocidadeRotacao = 100f;
+    [SerializeField] private float velocidadeRotacao = 80f;
 
     void Update()
     {

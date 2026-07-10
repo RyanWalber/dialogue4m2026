@@ -30,7 +30,7 @@ public class ControladorSelecao : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            // Garante que uma bolinha padrão esteja selecionada caso não cliquem em nada
+           
             if (GameManager.Instance.bolinhaEscolhidaJ1 == null && todasBolinhas.Length > 0) GameManager.Instance.bolinhaEscolhidaJ1 = todasBolinhas[0];
             if (GameManager.Instance.bolinhaEscolhidaJ2 == null && todasBolinhas.Length > 0) GameManager.Instance.bolinhaEscolhidaJ2 = todasBolinhas[0];
 

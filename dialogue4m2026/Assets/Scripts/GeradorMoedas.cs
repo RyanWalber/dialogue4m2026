@@ -10,8 +10,8 @@ public class GeradorMoedas : MonoBehaviour
     [SerializeField] private float intervaloSpawn = 4f;
 
     [Header("Limites da Arena (Área de Spawn)")]
-    [SerializeField] private float limiteX = 8f;
-    [SerializeField] private float limiteZ = 8f;
+    [SerializeField] private float limiteX = 20f;
+    [SerializeField] private float limiteZ = 20f;
     [SerializeField] private float alturaY = 0.5f;
 
     private bool gerando = true;

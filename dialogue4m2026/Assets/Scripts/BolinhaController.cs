@@ -9,7 +9,7 @@ public class BolinhaController : MonoBehaviour
     [Range(1, 2)] public int numeroJogador = 1;
     public BolinhaData dadosBolinha;
 
-    [Header("Estatísticas Atuais (Modificadas por Moedas)")]
+    [Header("Estatísticas Atuais")]
     private float velocidadeAtual;
     private float forcaEmpurraoAtual;
     private int quantidadeMoedas = 0;
@@ -19,6 +19,7 @@ public class BolinhaController : MonoBehaviour
     private SumoInput inputActions;
     private bool podeEmpurrar = true;
     private BolinhaController adversario;
+    private float massaInicial;
 
     void Awake()
     {
@@ -28,6 +29,7 @@ public class BolinhaController : MonoBehaviour
 
     void Start()
     {
+        massaInicial = rb.mass;
         InitializeStatus();
         BuscarAdversario();
     }
@@ -62,7 +64,7 @@ public class BolinhaController : MonoBehaviour
 
     private void BuscarAdversario()
     {
-        BolinhaController[] todasBolas = FindObjectsByType<BolinhaController>(FindObjectsSortMode.None);
+        BolinhaController[] todasBolas = Object.FindObjectsByType<BolinhaController>(FindObjectsSortMode.None);
         foreach (var bola in todasBolas)
         {
             if (bola != this)
@@ -189,10 +191,33 @@ public class BolinhaController : MonoBehaviour
         velocidadeAtual = Mathf.Max(dadosBolinha.velocidadeInicial - (quantidadeMoedas * 0.5f), 3f);
         forcaEmpurraoAtual = dadosBolinha.forcaEmpurraoBase + (quantidadeMoedas * 3f);
 
-        Rigidbody rbProprio = GetComponent<Rigidbody>();
-        if (rbProprio != null)
+        if (rb != null)
         {
-            rbProprio.mass = 1f + (quantidadeMoedas * 0.5f);
+            rb.mass = massaInicial + (quantidadeMoedas * 0.5f);
         }
+    }
+
+    public void ResetarBolinha(Vector3 posicaoSpawn)
+    {
+        StopAllCoroutines();
+        transform.position = posicaoSpawn;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.mass = massaInicial;
+        }
+
+        quantidadeMoedas = 0;
+        podeEmpurrar = true;
+
+        if (dadosBolinha != null)
+        {
+            velocidadeAtual = dadosBolinha.velocidadeInicial;
+            forcaEmpurraoAtual = dadosBolinha.forcaEmpurraoBase;
+        }
+
+        PlayerObserverManager.NotificarProgressoCooldown(numeroJogador, 1f);
     }
 }
