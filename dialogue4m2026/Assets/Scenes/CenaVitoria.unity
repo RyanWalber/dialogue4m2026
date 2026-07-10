@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e7b370c09b51f4f9c0348c7eabaddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TelaVitoria
+  textoVencedor: {fileID: 1732906106}
 --- !u!1 &1438287258
 GameObject:
   m_ObjectHideFlags: 0

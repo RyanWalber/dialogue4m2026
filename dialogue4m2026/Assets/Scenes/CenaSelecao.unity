@@ -419,8 +419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327, y: 63}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 287, y: 89}
+  m_SizeDelta: {x: 94.6376, y: 78.1925}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &228735840
 MonoBehaviour:
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Setas
+  m_text: 'Setas Enter
 
 '
   m_isRightToLeft: 0
@@ -1583,6 +1583,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d5001290be254d546bfc813d3993f15d, type: 2}
   - {fileID: 11400000, guid: bc43bfc453763164ba445617c588afec, type: 2}
   - {fileID: 11400000, guid: 9dffdc378c834334a8241acc04dd765b, type: 2}
+  botoesJ1: []
+  botoesJ2: []
 --- !u!1 &906646202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,8 +2195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -248, y: 63}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -295, y: 89.597}
+  m_SizeDelta: {x: 126, y: 83.731}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1215523717
 MonoBehaviour:
@@ -2216,7 +2218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WASD
+  m_text: "WASD  Espa\xE7o"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

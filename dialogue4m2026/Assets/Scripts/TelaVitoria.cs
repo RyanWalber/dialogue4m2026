@@ -12,7 +12,7 @@ public class TelaVitoria : MonoBehaviour
 
         if (textoVencedor != null)
         {
-            textoVencedor.text = "Jogador " + vencedor + " é o Grande Campeão!";
+            textoVencedor.text = "Jogador " + vencedor + " venceu!";
         }
     }
 

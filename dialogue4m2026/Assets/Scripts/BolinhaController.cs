@@ -16,7 +16,6 @@ public class BolinhaController : MonoBehaviour
 
     private Vector2 comandoMovimento = Vector2.zero;
     private Rigidbody rb;
-    private SumoInput inputActions;
     private bool podeEmpurrar = true;
     private BolinhaController adversario;
     private float massaInicial;
@@ -24,7 +23,6 @@ public class BolinhaController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        inputActions = new SumoInput();
     }
 
     void Start()
@@ -75,68 +73,41 @@ public class BolinhaController : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    void Update()
     {
-        inputActions.Enable();
+        var teclado = Keyboard.current;
+        if (teclado == null) return;
+
+        float x = 0f;
+        float y = 0f;
 
         if (numeroJogador == 1)
         {
-            inputActions.Player.Move.performed += OnMoveJ1;
-            inputActions.Player.Move.canceled += OnMoveJ1;
-            inputActions.Player.Empurrar.performed += OnEmpurrarJ1;
+            if (teclado.wKey.isPressed) y = 1f;
+            if (teclado.sKey.isPressed) y = -1f;
+            if (teclado.aKey.isPressed) x = -1f;
+            if (teclado.dKey.isPressed) x = 1f;
+
+            comandoMovimento = new Vector2(x, y).normalized;
+
+            if (teclado.spaceKey.wasPressedThisFrame)
+            {
+                ExecutarEmpurrao();
+            }
         }
         else if (numeroJogador == 2)
         {
-            inputActions.Player.Move.performed += OnMoveJ2;
-            inputActions.Player.Move.canceled += OnMoveJ2;
-            inputActions.Player.Empurrar.performed += OnEmpurrarJ2;
-        }
-    }
+            if (teclado.upArrowKey.isPressed) y = 1f;
+            if (teclado.downArrowKey.isPressed) y = -1f;
+            if (teclado.leftArrowKey.isPressed) x = -1f;
+            if (teclado.rightArrowKey.isPressed) x = 1f;
 
-    void OnDisable()
-    {
-        if (numeroJogador == 1)
-        {
-            inputActions.Player.Move.performed -= OnMoveJ1;
-            inputActions.Player.Move.canceled -= OnMoveJ1;
-            inputActions.Player.Empurrar.performed -= OnEmpurrarJ1;
-        }
-        else if (numeroJogador == 2)
-        {
-            inputActions.Player.Move.performed -= OnMoveJ2;
-            inputActions.Player.Move.canceled -= OnMoveJ2;
-            inputActions.Player.Empurrar.performed -= OnEmpurrarJ2;
-        }
-        inputActions.Disable();
-    }
+            comandoMovimento = new Vector2(x, y).normalized;
 
-    private void OnMoveJ1(InputAction.CallbackContext context)
-    {
-        if (numeroJogador != 1) return;
-        if (context.control.path.Contains("Arrow") || context.control.path.Contains("arrow")) return;
-        comandoMovimento = context.ReadValue<Vector2>();
-    }
-
-    private void OnMoveJ2(InputAction.CallbackContext context)
-    {
-        if (numeroJogador != 2) return;
-        if (!context.control.path.Contains("Arrow") && !context.control.path.Contains("arrow")) return;
-        comandoMovimento = context.ReadValue<Vector2>();
-    }
-
-    private void OnEmpurrarJ1(InputAction.CallbackContext context)
-    {
-        if (numeroJogador == 1 && context.control.path.ToLower().Contains("space"))
-        {
-            ExecutarEmpurrao();
-        }
-    }
-
-    private void OnEmpurrarJ2(InputAction.CallbackContext context)
-    {
-        if (numeroJogador == 2 && (context.control.path.ToLower().Contains("enter") || context.control.path.ToLower().Contains("return")))
-        {
-            ExecutarEmpurrao();
+            if (teclado.enterKey.wasPressedThisFrame || teclado.numpadEnterKey.wasPressedThisFrame)
+            {
+                ExecutarEmpurrao();
+            }
         }
     }
 
@@ -152,8 +123,8 @@ public class BolinhaController : MonoBehaviour
 
         float distancia = Vector3.Distance(transform.position, adversario.transform.position);
 
-        Vector3 direcaoOpposta = (adversario.transform.position - transform.position).normalized;
-        direcaoOpposta.y = 0f;
+        Vector3 direcaoEmpurrao = (adversario.transform.position - transform.position).normalized;
+        direcaoEmpurrao.y = 0f;
 
         float fatorDistancia = 1f / Mathf.Max(distancia, 0.5f);
         float forcaFinal = forcaEmpurraoAtual * fatorDistancia;
@@ -161,7 +132,7 @@ public class BolinhaController : MonoBehaviour
         Rigidbody rbAdversario = adversario.GetComponent<Rigidbody>();
         if (rbAdversario != null)
         {
-            rbAdversario.AddForce(direcaoOpposta * forcaFinal, ForceMode.Impulse);
+            rbAdversario.AddForce(direcaoEmpurrao * forcaFinal, ForceMode.Impulse);
         }
 
         StartCoroutine(RotinaCooldown());
