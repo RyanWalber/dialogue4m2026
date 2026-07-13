@@ -3,16 +3,16 @@ using System.Collections;
 
 public class GeradorMoedas : MonoBehaviour
 {
-    [Header("Configurações do Prefab")]
+    [Header("Configuraï¿½ï¿½es do Prefab")]
     [SerializeField] private GameObject prefabMoeda;
 
-    [Header("Configurações de Tempo")]
+    [Header("Configuraï¿½ï¿½es de Tempo")]
     [SerializeField] private float intervaloSpawn = 4f;
 
-    [Header("Limites da Arena (Área de Spawn)")]
-    [SerializeField] private float limiteX = 20f;
-    [SerializeField] private float limiteZ = 20f;
-    [SerializeField] private float alturaY = 0.5f;
+    [Header("Limites da Arena (ï¿½rea de Spawn)")]
+    [SerializeField] private float limiteX = 12f;
+    [SerializeField] private float limiteZ = 12f;
+    [SerializeField] private float alturaY = 1.5f;
 
     private bool gerando = true;
 

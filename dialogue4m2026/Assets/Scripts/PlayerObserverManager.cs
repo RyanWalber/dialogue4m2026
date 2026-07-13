@@ -8,6 +8,9 @@ public static class PlayerObserverManager
     public static event Action<int> OnMoedaContabilizada;
     public static void NotificarMoedaContabilizada(int totalMoedas) => OnMoedaContabilizada?.Invoke(totalMoedas);
 
+    public static event Action<int, int> OnMoedasAtualizadas;
+    public static void NotificarMoedasAtualizadas(int numeroJogador, int quantidadeMoedas) => OnMoedasAtualizadas?.Invoke(numeroJogador, quantidadeMoedas);
+
     public static event Action<int, float> OnCooldownAtualizado;
     public static void NotificarProgressoCooldown(int numeroJogador, float progresso) => OnCooldownAtualizado?.Invoke(numeroJogador, progresso);
 

@@ -15,21 +15,18 @@ public class ControladorInterfaceSumo : MonoBehaviour
     [SerializeField] private Slider barraCooldownJ1;
     [SerializeField] private Slider barraCooldownJ2;
 
-    private int moedasJ1 = 0;
-    private int moedasJ2 = 0;
-
     void OnEnable()
     {
         PlayerObserverManager.OnPlacarAtualizado += AtualizarPlacarUI;
         PlayerObserverManager.OnCooldownAtualizado += AtualizarBarrasCooldown;
-        PlayerObserverManager.OnMoedaColetadaNoMapa += ContabilizarMoedaGeral;
+        PlayerObserverManager.OnMoedasAtualizadas += AtualizarMoedasUI;
     }
 
     void OnDisable()
     {
         PlayerObserverManager.OnPlacarAtualizado -= AtualizarPlacarUI;
         PlayerObserverManager.OnCooldownAtualizado -= AtualizarBarrasCooldown;
-        PlayerObserverManager.OnMoedaColetadaNoMapa -= ContabilizarMoedaGeral;
+        PlayerObserverManager.OnMoedasAtualizadas -= AtualizarMoedasUI;
     }
 
     void Start()
@@ -53,30 +50,22 @@ public class ControladorInterfaceSumo : MonoBehaviour
         }
     }
 
-    public void RegistrarMoedaDoJogador(int numeroJogador)
+    private void AtualizarMoedasUI(int numeroJogador, int quantidadeMoedas)
     {
-        if (numeroJogador == 1)
+        if (numeroJogador == 1 && textoMoedasJ1 != null)
         {
-            moedasJ1++;
-            if (textoMoedasJ1 != null) textoMoedasJ1.text = "Moedas J1: " + moedasJ1;
+            textoMoedasJ1.text = quantidadeMoedas.ToString();
         }
-        else if (numeroJogador == 2)
+        else if (numeroJogador == 2 && textoMoedasJ2 != null)
         {
-            moedasJ2++;
-            if (textoMoedasJ2 != null) textoMoedasJ2.text = "Moedas J2: " + moedasJ2;
+            textoMoedasJ2.text = quantidadeMoedas.ToString();
         }
-    }
-
-    private void ContabilizarMoedaGeral()
-    {
     }
 
     public void ResetarMoedasUI()
     {
-        moedasJ1 = 0;
-        moedasJ2 = 0;
-        if (textoMoedasJ1 != null) textoMoedasJ1.text = "Moedas J1: 0";
-        if (textoMoedasJ2 != null) textoMoedasJ2.text = "Moedas J2: 0";
+        if (textoMoedasJ1 != null) textoMoedasJ1.text = "0";
+        if (textoMoedasJ2 != null) textoMoedasJ2.text = "0";
     }
 
     private void AtualizarBarrasCooldown(int numeroJogador, float progresso)

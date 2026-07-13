@@ -946,6 +946,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494057575}
   m_CullTransparentMesh: 1
+--- !u!1 &606884643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606884646}
+  - component: {fileID: 606884645}
+  - component: {fileID: 606884644}
+  m_Layer: 0
+  m_Name: "GerenciadorSele\xE7\xE3o"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &606884644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606884643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed257eaa4a016d74b8f765347c2804c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SeletorBolinha
+  numeroJogador: 2
+  botaoAgil: {fileID: 1693265671}
+  botaoEquilibrado: {fileID: 1887373480}
+  botaoVeloz: {fileID: 854260130}
+  botaoCanhao: {fileID: 1173852720}
+  botaoPesada: {fileID: 218132346}
+  dadosAgil: {fileID: 11400000, guid: 100d77bee2cfb004a9485f4df08ac4af, type: 2}
+  dadosEquilibrado: {fileID: 11400000, guid: d5001290be254d546bfc813d3993f15d, type: 2}
+  dadosVeloz: {fileID: 11400000, guid: 9dffdc378c834334a8241acc04dd765b, type: 2}
+  dadosCanhao: {fileID: 11400000, guid: 4f5796afa8f811844aa430fe3cbb13ff, type: 2}
+  dadosPesada: {fileID: 11400000, guid: bc43bfc453763164ba445617c588afec, type: 2}
+--- !u!114 &606884645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606884643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed257eaa4a016d74b8f765347c2804c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SeletorBolinha
+  numeroJogador: 1
+  botaoAgil: {fileID: 1810317989}
+  botaoEquilibrado: {fileID: 1710903622}
+  botaoVeloz: {fileID: 452859769}
+  botaoCanhao: {fileID: 2090791847}
+  botaoPesada: {fileID: 64259097}
+  dadosAgil: {fileID: 11400000, guid: 100d77bee2cfb004a9485f4df08ac4af, type: 2}
+  dadosEquilibrado: {fileID: 11400000, guid: d5001290be254d546bfc813d3993f15d, type: 2}
+  dadosVeloz: {fileID: 11400000, guid: 9dffdc378c834334a8241acc04dd765b, type: 2}
+  dadosCanhao: {fileID: 11400000, guid: 4f5796afa8f811844aa430fe3cbb13ff, type: 2}
+  dadosPesada: {fileID: 11400000, guid: bc43bfc453763164ba445617c588afec, type: 2}
+--- !u!4 &606884646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606884643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 606.94196, y: 147.69553, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632218527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -408, y: -88}
+  m_AnchoredPosition: {x: -391.4, y: -88}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710903622
@@ -3211,7 +3290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -408, y: -29}
+  m_AnchoredPosition: {x: -391.4, y: -29}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1810317989
@@ -3742,3 +3821,4 @@ SceneRoots:
   - {fileID: 254157854}
   - {fileID: 898049727}
   - {fileID: 1885132858}
+  - {fileID: 606884646}

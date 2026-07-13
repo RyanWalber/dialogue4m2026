@@ -5,7 +5,6 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class BolinhaController : MonoBehaviour
 {
-    [Header("Configurações do Jogador")]
     [Range(1, 2)] public int numeroJogador = 1;
     public BolinhaData dadosBolinha;
 
@@ -210,13 +209,16 @@ public class BolinhaController : MonoBehaviour
     public void ColetarMoedaModificadora()
     {
         quantidadeMoedas++;
-        velocidadeAtual = Mathf.Max(dadosBolinha.velocidadeInicial - (quantidadeMoedas * 0.5f), 3f);
-        forcaEmpurraoAtual = dadosBolinha.forcaEmpurraoBase + (quantidadeMoedas * 3f);
+        velocidadeAtual = Mathf.Max(dadosBolinha.velocidadeInicial - (quantidadeMoedas * 0.3f), 3f);
+        forcaEmpurraoAtual = dadosBolinha.forcaEmpurraoBase * (1f + (quantidadeMoedas * 1.5f));
 
         if (rb != null)
         {
-            rb.mass = massaInicial + (quantidadeMoedas * 0.5f);
+            rb.mass = massaInicial + (quantidadeMoedas * 0.2f);
         }
+
+        PlayerObserverManager.NotificarMoedasAtualizadas(numeroJogador, quantidadeMoedas);
+        PlayerObserverManager.NotificarMoedaContabilizada(quantidadeMoedas);
     }
 
     public void ResetarBolinha(Vector3 posicaoSpawn)
@@ -242,5 +244,6 @@ public class BolinhaController : MonoBehaviour
         }
 
         PlayerObserverManager.NotificarProgressoCooldown(numeroJogador, 1f);
+        PlayerObserverManager.NotificarMoedasAtualizadas(numeroJogador, quantidadeMoedas);
     }
 }

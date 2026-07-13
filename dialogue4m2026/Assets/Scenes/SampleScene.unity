@@ -535,9 +535,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GeradorMoedas
   prefabMoeda: {fileID: 5359911306321744411, guid: 5f3c6afdb91cd9a4fa7149175af7af60, type: 3}
-  intervaloSpawn: 4
-  limiteX: 10
-  limiteZ: 10
+  intervaloSpawn: 3
+  limiteX: 12
+  limiteZ: 12
   alturaY: 1.5
 --- !u!4 &824645172
 Transform:
@@ -678,7 +678,7 @@ Rigidbody:
   m_GameObject: {fileID: 1279746635}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.5
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -932,7 +932,7 @@ Rigidbody:
   m_GameObject: {fileID: 2051619375}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.5
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1334,7 +1334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8316337889111014505, guid: 5f3c6afdb91cd9a4fa7149175af7af60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.9
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 8316337889111014505, guid: 5f3c6afdb91cd9a4fa7149175af7af60, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1342,7 +1342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8316337889111014505, guid: 5f3c6afdb91cd9a4fa7149175af7af60, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.8
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8316337889111014505, guid: 5f3c6afdb91cd9a4fa7149175af7af60, type: 3}
       propertyPath: m_LocalRotation.w
