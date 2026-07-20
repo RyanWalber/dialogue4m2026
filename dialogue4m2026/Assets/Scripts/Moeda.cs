@@ -15,7 +15,9 @@ public class Moeda : MonoBehaviour
         if (bola != null)
         {
             bola.ColetarMoedaModificadora();
+
             PlayerObserverManager.DispararMoedaColetadaNoMapa();
+            
             Destroy(gameObject);
         }
     }

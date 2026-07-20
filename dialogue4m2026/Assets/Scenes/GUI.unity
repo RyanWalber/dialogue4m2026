@@ -1044,8 +1044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorInterfaceSumo
   textoPlacar: {fileID: 2063714657}
-  textoMoedasJ1: {fileID: 0}
-  textoMoedasJ2: {fileID: 0}
+  textoMoedasJ1: {fileID: 2145760617}
+  textoMoedasJ2: {fileID: 161676942}
   barraCooldownJ1: {fileID: 66276911}
   barraCooldownJ2: {fileID: 1671056426}
 --- !u!1 &1449727716

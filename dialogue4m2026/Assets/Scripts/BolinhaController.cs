@@ -209,12 +209,13 @@ public class BolinhaController : MonoBehaviour
     public void ColetarMoedaModificadora()
     {
         quantidadeMoedas++;
-        velocidadeAtual = Mathf.Max(dadosBolinha.velocidadeInicial - (quantidadeMoedas * 0.3f), 3f);
-        forcaEmpurraoAtual = dadosBolinha.forcaEmpurraoBase * (1f + (quantidadeMoedas * 1.5f));
+        
+        // Aumenta a força e a massa em 15% cumulativos a cada moeda (+15%, +30%, +45%...)
+        forcaEmpurraoAtual = dadosBolinha.forcaEmpurraoBase * (1f + (quantidadeMoedas * 0.15f));
 
         if (rb != null)
         {
-            rb.mass = massaInicial + (quantidadeMoedas * 0.2f);
+            rb.mass = massaInicial * (1f + (quantidadeMoedas * 0.15f));
         }
 
         PlayerObserverManager.NotificarMoedasAtualizadas(numeroJogador, quantidadeMoedas);
