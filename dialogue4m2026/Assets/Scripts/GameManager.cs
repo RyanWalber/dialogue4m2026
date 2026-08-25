@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public enum EstadoDoJogo { Iniciando, MenuPrincipal, Gameplay }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
     public EstadoDoJogo estadoAtual;
 
     [Header("Dados de Seleção")]
@@ -17,6 +19,11 @@ public class GameManager : MonoBehaviour
     private int vitoriasJ1 = 0;
     private int vitoriasJ2 = 0;
     private int jogadorVencedorPartida = 0;
+
+    [Header("Dados de Save e Moedas (Parte 4)")]
+    public SaveData dadosAtuais = new SaveData();
+    public int moedasAtuaisFase = 0;
+    public List<string> moedasColetadasNestaSessao = new List<string>();
 
     void Awake()
     {
@@ -57,14 +64,65 @@ public class GameManager : MonoBehaviour
     public void CarregarCena(string nomeDaCena)
     {
         if (nomeDaCena == "MainMenu") MudarEstado(EstadoDoJogo.MenuPrincipal);
-        if (nomeDaCena == "SampleScene") MudarEstado(EstadoDoJogo.Gameplay);
+        if (nomeDaCena.StartsWith("Fase") || nomeDaCena == "SampleScene") MudarEstado(EstadoDoJogo.Gameplay);
 
         SceneManager.LoadScene(nomeDaCena);
 
-        if (nomeDaCena == "SampleScene")
+        if (nomeDaCena.StartsWith("Fase") || nomeDaCena == "SampleScene")
         {
             SceneManager.LoadScene("GUI", LoadSceneMode.Additive);
         }
+    }
+
+    public void NovoJogo()
+    {
+        dadosAtuais = new SaveData();
+        moedasAtuaisFase = 0;
+        moedasColetadasNestaSessao.Clear();
+        CarregarFase(1);
+    }
+
+    public void SalvarEmSlot(int slot)
+    {
+        SaveSystem.SalvarSlot(slot, dadosAtuais);
+        if (slot != 0)
+        {
+            SaveSystem.SalvarSlot(0, dadosAtuais);
+        }
+    }
+
+    public void CarregarSlot(int slot)
+    {
+        SaveData data = SaveSystem.CarregarSlot(slot);
+        if (data == null) return;
+
+        dadosAtuais = data;
+        if (slot != 0)
+        {
+            SaveSystem.SalvarSlot(0, dadosAtuais);
+        }
+
+        moedasAtuaisFase = dadosAtuais.moedasNoCheckpoint;
+        moedasColetadasNestaSessao = new List<string>(dadosAtuais.idsMoedasColetadasNoCheckpoint);
+        CarregarFase(dadosAtuais.faseAtualIndex);
+    }
+
+    public void CarregarFase(int indexFase)
+    {
+        dadosAtuais.faseAtualIndex = indexFase;
+        CarregarCena($"Fase{indexFase}");
+    }
+
+    public void RegistrarCheckpoint(Vector3 posicao)
+    {
+        dadosAtuais.checkpointAlcancado = true;
+        dadosAtuais.checkpointPosX = posicao.x;
+        dadosAtuais.checkpointPosY = posicao.y;
+        dadosAtuais.checkpointPosZ = posicao.z;
+        dadosAtuais.moedasNoCheckpoint = moedasAtuaisFase;
+        dadosAtuais.idsMoedasColetadasNoCheckpoint = new List<string>(moedasColetadasNestaSessao);
+
+        SalvarEmSlot(0);
     }
 
     public void AlocarInput(PlayerInput playerInput)
@@ -104,13 +162,13 @@ public class GameManager : MonoBehaviour
 
     private void ReiniciarRound()
     {
-        SceneManager.LoadScene("SampleScene");
+        CarregarFase(dadosAtuais.faseAtualIndex);
     }
 
     private void FinalizarPartida(int vencedor)
     {
         jogadorVencedorPartida = vencedor;
-        SceneManager.LoadScene("CenaVitoria");
+        CarregarCena("CenaVitoria");
     }
 
     public void IniciarNovaPartida()
@@ -118,12 +176,12 @@ public class GameManager : MonoBehaviour
         vitoriasJ1 = 0;
         vitoriasJ2 = 0;
         jogadorVencedorPartida = 0;
-        SceneManager.LoadScene("SampleScene");
+        NovoJogo();
     }
 
     public void VoltarParaSelecao()
     {
-        SceneManager.LoadScene("CenaSelecao");
+        CarregarCena("CenaSelecao");
     }
 
     public string ObterNomeBolinhaVencedora()
